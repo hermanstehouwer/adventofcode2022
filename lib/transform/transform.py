@@ -1,4 +1,4 @@
-from typing import Iterator, Any
+from typing import Iterator, AnyStr, List
 
 
 def to_int(iter: Iterator[str]) -> Iterator[int]:
@@ -18,3 +18,8 @@ def add_lists_seperated_empty_line(iter: Iterator[int]) -> Iterator[int]:
             yield total
             total = 0
     yield total
+
+
+def split_two(iter: Iterator[AnyStr]) -> Iterator[List[AnyStr]]:
+    for i in iter:
+        yield i.split(" ")

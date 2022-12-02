@@ -1,1 +1,1 @@
-pytestgit st
+pytest
