@@ -1,4 +1,4 @@
-from typing import Iterator, AnyStr, List, Tuple
+from typing import Iterator, AnyStr, List, Tuple, Set
 import string
 
 
@@ -21,9 +21,9 @@ def add_lists_seperated_empty_line(iter: Iterator[int]) -> Iterator[int]:
     yield total
 
 
-def split_two(iter: Iterator[AnyStr]) -> Iterator[List[AnyStr]]:
+def split_two(iter: Iterator[AnyStr], split: AnyStr = " ") -> Iterator[List[AnyStr]]:
     for i in iter:
-        yield i.split(" ")
+        yield i.split(split)
 
 
 def iter_group(iter: Iterator[AnyStr], size_of_group: int = 3) -> Iterator[Tuple[AnyStr, AnyStr, AnyStr]]:
@@ -35,18 +35,8 @@ def iter_group(iter: Iterator[AnyStr], size_of_group: int = 3) -> Iterator[Tuple
             y = []
 
 
-def iter_split_middle(iter: Iterator[AnyStr]) -> Iterator[Tuple[AnyStr, AnyStr]]:
-    for i in iter:
-        yield split_middle(i)
-
-
 def split_middle(i: AnyStr) -> Tuple[AnyStr, AnyStr]:
     return i[:len(i) // 2], i[len(i) // 2:]
-
-
-def iter_tuple_to_unique_character(iter: Iterator[Iterator[AnyStr]]) -> Iterator[AnyStr]:
-    for i in iter:
-        yield tuple_to_unique_character(i)
 
 
 def tuple_to_unique_character(tuple: Iterator[AnyStr]) -> AnyStr:
@@ -56,14 +46,26 @@ def tuple_to_unique_character(tuple: Iterator[AnyStr]) -> AnyStr:
     return overlap.pop()
 
 
-def iter_char_to_priority(iter: Iterator[AnyStr]) -> Iterator[int]:
-    for i in iter:
-        yield char_to_priority(i)
-
-
 def char_to_priority(input: AnyStr) -> int:
     val = ord(input) - 38
     if val > 52:
         val = val - 58
     return val
 
+
+def to_range(input: AnyStr) -> Set[int]:
+    a, b = input.split("-")
+    return set(range(int(a), int(b)+1))
+
+
+def overlap_all_sets(iter: Iterator[Set[int]]) -> bool:
+    sets = list(iter)
+    if sets[0].issubset(sets[1]) or sets[1].issubset(sets[0]):
+        return True
+    return False
+
+
+def overlap_partial_sets(iter: Iterator[Set[int]]) -> bool:
+    sets = list(iter)
+    newset = sets[0].union(sets[1])
+    return len(newset) < len(sets[0]) + len(sets[1])

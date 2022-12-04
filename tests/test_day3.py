@@ -1,7 +1,6 @@
 import pytest
 
-from lib.transform.transform import split_middle, tuple_to_unique_character, char_to_priority, iter_split_middle, \
-    iter_tuple_to_unique_character, iter_char_to_priority, iter_group
+from lib.transform.transform import split_middle, tuple_to_unique_character, char_to_priority, iter_group
 
 
 @pytest.mark.parametrize("input,error_character", [
@@ -35,7 +34,10 @@ def test_sum_of_priorities():
              "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
              "ttgJtRGJQctTZtZT",
              "CrZsJsPPZsGzwwsLwLmpwMDw"]
-    assert sum(iter_char_to_priority(iter_tuple_to_unique_character(iter_split_middle(input)))) == 157
+    assert sum(
+        map(char_to_priority,
+            map(tuple_to_unique_character,
+                map(split_middle, input)))) == 157
 
 def test_sum_of_badge_priorities():
     input = ["vJrwpWtwJgWrhcsFMMfFFhFp",
@@ -44,5 +46,8 @@ def test_sum_of_badge_priorities():
              "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
              "ttgJtRGJQctTZtZT",
              "CrZsJsPPZsGzwwsLwLmpwMDw"]
-    assert sum(iter_char_to_priority(iter_tuple_to_unique_character(iter_group(iter(input))))) == 70
+    assert sum(
+        map(char_to_priority,
+            map(tuple_to_unique_character,
+                (iter_group(iter(input)))))) == 70
 
