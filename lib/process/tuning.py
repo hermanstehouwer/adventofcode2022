@@ -20,4 +20,3 @@ def rec_lockon_tuning(iter: Iterator[AnyStr], comp: List[AnyStr], target_lenght:
     if len(comp) == len(set(comp)):
         return idx
     return rec_lockon_tuning(iter, target_lenght=target_lenght, idx=idx+1, comp=comp[1:] + [next(iter)])
-
