@@ -25,19 +25,14 @@ def iter_and_parse(iter: Iterator[AnyStr]) -> List[Directory]:
     curr_dir: Directory = None # Assume: first command is cd /
     for line in iter:
         match line.split(" "):
-            case ["$", "cd", "/"]:
-                curr_dir = root
-            case ["$", "cd", ".."]:
-                curr_dir = curr_dir.parent
-            case ["$", "cd", tgt_dir]:
-                curr_dir = curr_dir.subdirs[tgt_dir]
-            case ["$", "ls"]:
-                pass
-            case ["dir", dir_name]:
+            case["dir", dir_name]:
                 dirs.append(Directory(name=dir_name, files=[], subdirs={}, parent=curr_dir))
                 curr_dir.subdirs[dir_name] = dirs[-1]
-            case [file_size, file_name]:
-                curr_dir.files.append(File(int(file_size), file_name))
+            case ["$", "cd", "/"]:       curr_dir = root
+            case ["$", "cd", ".."]:      curr_dir = curr_dir.parent
+            case ["$", "cd", tgt_dir]:   curr_dir = curr_dir.subdirs[tgt_dir]
+            case ["$", "ls"]:            pass
+            case [file_size, file_name]: curr_dir.files.append(File(int(file_size), file_name))
     return dirs
 
 
