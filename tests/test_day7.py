@@ -8,6 +8,7 @@ def test_part_one():
     filtered = filter(filter_directory, dirs)
     assert sum([f.calc_size() for f in filtered]) == 95437
 
+
 def test_part_two():
     iter = file_to_list("tests/data/day7.txt")
     dirs = iter_and_parse(iter)

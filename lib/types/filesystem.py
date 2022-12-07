@@ -5,24 +5,24 @@ from typing import Iterator, AnyStr, List, Dict
 @dataclass()
 class File:
     size: int
-    name: str
+    name: AnyStr
 
 
 @dataclass
 class Directory:
-    name: str
-    files: List
-    subdirs: Dict
-    parent: None
+    name: AnyStr
+    files: List['File']
+    subdirs: Dict[AnyStr, 'Directory']
+    parent: 'Directory'
 
-    def calc_size(self):
+    def calc_size(self) -> int:
         return sum([f.size for f in self.files]) + sum([d.calc_size() for d in self.subdirs.values()])
 
 
 def iter_and_parse(iter: Iterator[AnyStr]) -> List[Directory]:
-    root = Directory(name="/", files=[], subdirs={}, parent=None)
-    dirs = [root]
-    curr_dir = None # Assume: first command is cd /
+    root: Directory = Directory(name="/", files=[], subdirs={}, parent=None)
+    dirs: List[Directory] = [root]
+    curr_dir: Directory = None # Assume: first command is cd /
     for line in iter:
         l = line.split(" ")
         match l[0]:
