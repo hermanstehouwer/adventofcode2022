@@ -16,7 +16,8 @@ class Directory:
     parent: 'Directory'
 
     def calc_size(self) -> int:
-        return sum([f.size for f in self.files]) + sum([d.calc_size() for d in self.subdirs.values()])
+        return sum([f.size for f in self.files]) + \
+               sum([d.calc_size() for d in self.subdirs.values()])
 
 
 def iter_and_parse(iter: Iterator[AnyStr]) -> List[Directory]:
