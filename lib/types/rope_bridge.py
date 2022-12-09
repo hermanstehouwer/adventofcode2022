@@ -1,6 +1,6 @@
 from typing import Tuple, Set, Iterable, AnyStr, List
 from lib.types.trees import Directions
-
+import numpy as np
 
 class RopeBridge:
     rope: List[Tuple[int, int]]
@@ -48,6 +48,5 @@ class RopeBridge:
 
     @staticmethod
     def find_new_pos(prev, knot):
-        a = -1 if prev[0] < knot[0] else 1 if prev[0] > knot[0] else 0
-        b = -1 if prev[1] < knot[1] else 1 if prev[1] > knot[1] else 0
-        return knot[0] + a, knot[1] + b
+        return knot[0] + np.clip(prev[0] - knot[0], -1, 1), \
+               knot[1] + np.clip(prev[1] - knot[1], -1, 1)
