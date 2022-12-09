@@ -5,9 +5,16 @@ from math import prod
 
 class Directions(IntEnum):
     RIGHT = 0
-    LEFT  = 2
-    UP    = 3
-    DOWN  = 4
+    LEFT  = 1
+    UP    = 2
+    DOWN  = 3
+
+    def invert(self) -> 'Directions':
+        match self:
+            case Directions.UP: return Directions.DOWN
+            case Directions.DOWN: return Directions.UP
+            case Directions.LEFT: return Directions.RIGHT
+            case Directions.RIGHT: return Directions.LEFT
 
 
 def lines_to_ints(lines: Iterator[AnyStr]) -> List[List[int]]:
