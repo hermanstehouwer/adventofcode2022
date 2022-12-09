@@ -2,6 +2,7 @@ from typing import Tuple, Set, Iterable, AnyStr, List
 from lib.types.trees import Directions
 import numpy as np
 
+
 class RopeBridge:
     rope: List[Tuple[int, int]]
     visited: Set[Tuple[int, int]]
@@ -43,8 +44,7 @@ class RopeBridge:
 
     @staticmethod
     def knot_knot_adjecent(head: Tuple[int, int], tail: Tuple[int, int]) -> bool:
-        return not( abs(head[0] - tail[0]) > 1 or
-                    abs(head[1] - tail[1]) > 1)
+        return not(abs(head[0] - tail[0]) > 1 or abs(head[1] - tail[1]) > 1)
 
     @staticmethod
     def find_new_pos(prev, knot):
