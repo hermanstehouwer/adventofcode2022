@@ -118,7 +118,3 @@ class Climbing():
             case "S": return 0
             case "E": return 25
             case c: return ord(c) - ord("a")
-
-
-
-
