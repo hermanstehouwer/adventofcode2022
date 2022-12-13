@@ -20,7 +20,7 @@ class Coord:
         return self.x < other.x or self.x == other.x and self.y < other.y
 
 
-class Climbing():gi
+class Climbing():
     map: List[List[AnyStr]]
     max_x: int
     max_y: int
